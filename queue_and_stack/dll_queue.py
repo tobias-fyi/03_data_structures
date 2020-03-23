@@ -10,9 +10,9 @@ from doubly_linked_list import DoublyLinkedList
 
 class Queue:
     def __init__(self):
-        # self.size = 0
-        # Use a DLL to store our elements because already
-        # set up with needed methods
+        """Implementation of a Queue (FIFO). A doubly-linked list is
+        used as the underlying data structure because the methods for
+        the two data structures are very similar."""
         self.storage = DoublyLinkedList()
 
     def enqueue(self, value):
