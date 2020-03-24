@@ -12,7 +12,7 @@ class Stack:
     def __init__(self):
         """Implementation of a Stack (LIFO). A doubly-linked list is
         used as the underlying data structure because the methods for
-        the two data structures are very similar."""
+        manipulating the two data structures are very similar."""
         self.storage = DoublyLinkedList()
 
     def push(self, value):
