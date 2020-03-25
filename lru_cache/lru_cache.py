@@ -123,20 +123,13 @@ class LRUCache:
         if len(self.storage) < 1:  # In case nothing in cache
             return None
         node = self.storage.head  # Start at the head
-        value = None  # Value to be returned
-        exists = False
         while node:  # Loop through nodes, looking for key
             if node.key == key:
-                exists = True
-                break
+                value = node.value  # Return value of node
+                if node is not self.storage.head:  # If head, no need to move
+                    self.storage.move_to_head(node)
+                return value  # Returning value implies breaking loop
             node = node.next  # Iterate
-
-        if exists:  # If exists, grab the value
-            value = node.value  # Return value of node
-            if node is not self.storage.head:  # If head, no need to move
-                self.storage.move_to_head(node)
-
-        return value
 
     def set(self, key, value):
         """Adds the given key-value pair to the cache.
@@ -148,7 +141,7 @@ class LRUCache:
         already exists in the cache, the old value associated with
         the key is overwritten by the new value.
         """
-        # Look for the key in the cache using `self.get()`
+        # Look for key in cache using `self.get()`
         if self.get(key) is not None:
             # If exists, the call will relocate it to head position
             # Thus, head will only need to be updated with new value
