@@ -97,26 +97,36 @@ class BinarySearchTree:
         """Prints the value of every node, starting with the given node,
         in an iterative breadth first traversal
         """
-        # Create queue
-        # Add root to queue
+        q = Queue()  # Create queue
+        q.enqueue(node)  # Add root (bst/node) to queue
         # while queue is not empty
-        # node = head of queue
-        # DO THE THING (print)
-        # Add children of root to queue
-        # pop node off the queue
-        pass
+        while q.len() > 0:
+            # Pop current node off the queue to process
+            current_node = q.dequeue()
+            # DO THE THING (print)
+            print(current_node.value)
+            # Add children of root to queue
+            if current_node.left:
+                q.enqueue(current_node.left)
+            if current_node.right:
+                q.enqueue(current_node.right)
 
     def dft_print(self, node):
         """Prints the value of every node, starting with the given node,
         in an iterative depth first traversal.
         """
-        # Create stack
-        # add root to stack
+        stack = Stack()  # Instantiate stack
+        stack.push(node)  # Add root (node) to stack
         # While stack is not empty
-        # Node = pop the top of the stack
-        # DO THE THING
-        # Add children of node to stack
-        pass
+        while stack.len() > 0:
+            # Node = pop the top of the stack
+            current_node = stack.pop()
+            print(current_node.value)  # DO THE THING!
+            # Add any existing children of current node to stack
+            if current_node.right:
+                stack.push(current_node.right)
+            if current_node.left:
+                stack.push(current_node.left)
 
     # ====== STRETCH Goals ====== #
     # Note: Research may be required
@@ -131,14 +141,20 @@ class BinarySearchTree:
 
 
 # %%
-bst = BinarySearchTree(5)
-bst.insert(2)
-bst.insert(3)
+bst = BinarySearchTree(1)
+bst.insert(8)
+bst.insert(5)
 bst.insert(7)
 bst.insert(6)
-bst.insert(16)
-bst.insert(63)
+bst.insert(3)
+bst.insert(4)
+bst.insert(2)
 
 bst.in_order_print(bst)
+
+bst.dft_print(bst)
+
+# %%
+bst.bft_print(bst)
 
 # %%
