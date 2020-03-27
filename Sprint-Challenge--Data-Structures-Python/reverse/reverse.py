@@ -1,3 +1,10 @@
+"""
+Data Structures :: Sprint Challenge
+
+Recursive reversal of singly-linked list.
+"""
+
+
 class Node:
     def __init__(self, value=None, next_node=None):
         # the value at this linked list node
@@ -18,10 +25,12 @@ class Node:
 
 class LinkedList:
     def __init__(self):
-        # reference to the head of the list
+        """Singly-linked list only holds reference
+        to the head of the list."""
         self.head = None
 
     def add_to_head(self, value):
+        """Adds a new node to the list, at the head."""
         node = Node(value)
         if self.head is not None:
             node.set_next(self.head)
@@ -29,6 +38,7 @@ class LinkedList:
         self.head = node
 
     def contains(self, value):
+        """Searches the list for a value. Returns True if found."""
         if not self.head:
             return False
         # get a reference to the node we're currently at; update this as we
@@ -46,5 +56,40 @@ class LinkedList:
         return False
 
     def reverse_list(self, node, prev):
-        # You must use recursion for this solution
-        pass
+        """Reverses the list, recursively."""
+        if node is None:  # Base case
+            # No next node means the new head has been found
+            return None
+        else:  # Recursive case
+            self.head = node
+            # Get and save the original next node
+            next_node = node.get_next()
+            # Set the current next to previous
+            node.set_next(prev)
+            # Pass in original next node as node and current node as previous
+            self.reverse_list(next_node, node)
+
+
+# To test it out while writing reverse_list()
+lst = LinkedList()
+lst.add_to_head(1)
+lst.add_to_head(2)
+lst.add_to_head(1)
+lst.add_to_head(2)
+lst.add_to_head(10)
+
+# Print original list
+node = lst.head
+while node:
+    print(node.value)
+    node = node.next_node
+
+# Reverse the list
+lst.reverse_list(lst.head, None)
+print()
+
+# Print the reversed list
+node = lst.head
+while node:
+    print(node.get_value())
+    node = node.get_next()
