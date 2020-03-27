@@ -1,3 +1,5 @@
+
+
 from doubly_linked_list import DoublyLinkedList
 from typing import Any
 
@@ -29,7 +31,7 @@ class RingBuffer:
                 # Set current to next item
                 self.current = self.current.next
 
-    def get(self):
+    def get(self) -> list:
         """Returns all of the elements in the buffer 
         in a list in their given order.
         """
@@ -48,13 +50,43 @@ class RingBuffer:
         return list_buffer_contents
 
 
-# ----------------Stretch Goal-------------------
+# ============ Stretch Goal ============ #
 class ArrayRingBuffer:
-    def __init__(self, capacity):
-        pass
+    def __init__(self, capacity: int):
+        """Ring buffer (circular buffer) implemented using a Python list.
+        
+        The behavior of the ring buffer means that the list always stays
+        the same length, and thus overcomes the problem with lists having
+        to be reinstantiated whenever they are extended beyond the capacity
+        of their current block of memory.
+        """
+        self.capacity = capacity
+        # Instantiate array of length capacity
+        self.storage = [None] * capacity
+        # Start out at index 0
+        self.current = 0
 
-    def append(self, item):
-        pass
+    def append(self, item: Any) -> None:
+        """Adds an element to the buffer.
+        
+        One advantage of the list-based ring buffer is the ease with which
+        the items are accessed via their indices.
+        """
+        # Replace current index with item
+        self.storage[self.current] = item
+        # Move to next item in list
+        if self.current == len(self.storage) - 1:
+            # If current is at end of list, start from beginning
+            self.current = 0
+        else:  # If not at end, increment index counter
+            self.current += 1
 
-    def get(self):
-        pass
+    def get(self) -> list:
+        """Returns all of the elements in the buffer 
+        in a list in their given order.
+
+        One of the advantages of the list-based ring buffer is that a new
+        list does not have to be created in order to return the items.
+        """
+        # List comprehension to return only non-None items
+        return [item for item in self.storage if item is not None]
